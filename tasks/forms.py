@@ -1,9 +1,8 @@
 from django import forms
-
 from .models import Task, Tag
 
 
-class TaskForm(forms.ModelForm):
+class BaseTaskForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -17,6 +16,15 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
+        fields = ["content", "deadline", "tags"]
+
+
+class TaskCreateForm(BaseTaskForm):
+    pass
+
+
+class TaskUpdateForm(BaseTaskForm):
+    class Meta(BaseTaskForm.Meta):
         fields = "__all__"
 
 
