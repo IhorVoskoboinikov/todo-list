@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Tag List
+      <a href="{% url 'task:tag-create' %}" class="btn btn-primary link-to-page float-right">
+        Create Tag
+      </a>
+    </h1>
+    {% if tag_list %}
+      <table class="table" style="width: 100%; text-align: center;">
+        <tr>
+          <th style="font-weight: bold; padding: 10px; text-align: center;">Name</th>
+          <th style="font-weight: bold; padding: 10px; text-align: center;">Update</th>
+          <th style="font-weight: bold; padding: 10px; text-align: center;">Delete</th>
+        </tr>
+
+        {% for tag in tag_list %}
+          <tr>
+            <td style="padding: 10px; text-align: center;">
+              {{ tag.name }}
+            </td>
+            <td style="padding: 10px; text-align: center;">
+              <a href="{% url 'task:tag-update' pk=tag.id %}" class="btn btn-primary link-to-page">
+                Update
+              </a>
+            </td>
+            <td style="padding: 10px; text-align: center;">
+              <a href="{% url 'task:tag-delete'  pk=tag.id %}" class="btn btn-primary link-to-page">
+                Delete
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p class="no-records" style="text-align: center; margin-top: 20px;">There are tags</p>
+    {% endif %}
+  </div>
+
+{% endblock %}
